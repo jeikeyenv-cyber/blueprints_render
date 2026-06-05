@@ -2,8 +2,9 @@ services:
   # 1. Base de Datos Privada (MariaDB)
   - type: pserv
     name: imperio-mariadb
-    runtime: image
-    image: docker.io/bitnami/mariadb:latest
+    env: image
+    image:
+      image: docker.io/bitnami/mariadb:latest
     plan: starter
     disk:
       name: mariadb-data
@@ -22,8 +23,9 @@ services:
   # 2. Tienda PrestaShop
   - type: web
     name: prestashop-app
-    runtime: image
-    image: docker.io/bitnami/prestashop:latest
+    env: image
+    image:
+      image: docker.io/bitnami/prestashop:latest
     plan: starter
     envVars:
       - key: PRESTASHOP_HOST
