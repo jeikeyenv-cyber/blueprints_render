@@ -2,7 +2,8 @@ services:
   - type: web
     name: prestashop-app
     env: image
-    image: docker.io/bitnami/prestashop:latest
+    image:
+      imagePath: docker.io/bitnami/prestashop:latest
     plan: starter
     envVars:
       - key: PRESTASHOP_HOST
