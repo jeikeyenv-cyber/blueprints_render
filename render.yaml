@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: prestashop-app
+    env: docker
+    plan: starter
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: prestashop-db
+          property: host
+    # Aquí irían tus variables de entorno para los agentes UAO
+
+  - type: psq
+    name: prestashop-db
+    plan: starter
+    databaseName: prestashop
+    databaseUser: prestashop_user
