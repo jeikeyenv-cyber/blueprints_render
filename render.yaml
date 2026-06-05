@@ -12,13 +12,13 @@ services:
       sizeGB: 1
     envVars:
       - key: MARIADB_ROOT_PASSWORD
-        generate: true
+        generateValue: true
       - key: MARIADB_DATABASE
         value: prestashop
       - key: MARIADB_USER
         value: prestashop
       - key: MARIADB_PASSWORD
-        generate: true
+        generateValue: true
 
   # 2. Tienda PrestaShop
   - type: web
@@ -55,4 +55,4 @@ services:
       - key: PRESTASHOP_EMAIL
         value: admin@imperio.ai
       - key: PRESTASHOP_PASSWORD
-        generate: true
+        generateValue: true
