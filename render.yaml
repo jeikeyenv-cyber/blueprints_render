@@ -1,4 +1,26 @@
 services:
+  # 1. Base de Datos Privada (MariaDB)
+  - type: pserv
+    name: imperio-mariadb
+    env: image
+    image:
+      imagePath: docker.io/bitnami/mariadb:latest
+    plan: starter
+    disk:
+      name: mariadb-data
+      mountPath: /bitnami/mariadb
+      sizeGB: 1
+    envVars:
+      - key: MARIADB_ROOT_PASSWORD
+        generate: true
+      - key: MARIADB_DATABASE
+        value: prestashop
+      - key: MARIADB_USER
+        value: prestashop
+      - key: MARIADB_PASSWORD
+        generate: true
+
+  # 2. Tienda PrestaShop
   - type: web
     name: prestashop-app
     env: image
@@ -9,7 +31,7 @@ services:
       - key: PRESTASHOP_HOST
         value: prestashop-app.onrender.com
       - key: MARIADB_HOST
-        value: imperio-mariadb-dropshipping
+        value: imperio-mariadb
       - key: MARIADB_PORT_NUMBER
         value: "3306"
       - key: MARIADB_DATABASE
@@ -17,12 +39,15 @@ services:
       - key: MARIADB_USER
         value: prestashop
       - key: MARIADB_PASSWORD
-        sync: false
+        fromService:
+          type: pserv
+          name: imperio-mariadb
+          envVarKey: MARIADB_PASSWORD
       - key: PRESTASHOP_FIRST_NAME
         value: Imperio
       - key: PRESTASHOP_LAST_NAME
         value: Admin
       - key: PRESTASHOP_EMAIL
-        sync: false
+        value: admin@imperio.ai
       - key: PRESTASHOP_PASSWORD
-        sync: false
+        generate: true
