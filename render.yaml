@@ -1,17 +1,27 @@
 services:
   - type: web
     name: prestashop-app
-    env: docker
+    env: image
+    image: docker.io/bitnami/prestashop:latest
     plan: starter
     envVars:
-      - key: DB_HOST
-        fromDatabase:
-          name: prestashop-db
-          property: host
-    # Aquí irían tus variables de entorno para los agentes UAO
-
-  - type: psq
-    name: prestashop-db
-    plan: starter
-    databaseName: prestashop
-    databaseUser: prestashop_user
+      - key: PRESTASHOP_HOST
+        value: prestashop-app.onrender.com
+      - key: MARIADB_HOST
+        value: imperio-mariadb-dropshipping
+      - key: MARIADB_PORT_NUMBER
+        value: "3306"
+      - key: MARIADB_DATABASE
+        value: prestashop
+      - key: MARIADB_USER
+        value: prestashop
+      - key: MARIADB_PASSWORD
+        sync: false
+      - key: PRESTASHOP_FIRST_NAME
+        value: Imperio
+      - key: PRESTASHOP_LAST_NAME
+        value: Admin
+      - key: PRESTASHOP_EMAIL
+        sync: false
+      - key: PRESTASHOP_PASSWORD
+        sync: false
